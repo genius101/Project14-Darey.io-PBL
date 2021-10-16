@@ -256,6 +256,27 @@ Add the code below into the Jenkinsfile
 
     }
 
+![1 y b](https://user-images.githubusercontent.com/10243139/137591587-f5989669-c122-4b1f-965d-066d08fab069.png)
+
+Verify in Blue Ocean that all the stages are working, then merge your feature branch to the main branch
+
+![1 y c](https://user-images.githubusercontent.com/10243139/137591669-66bef0b2-85ea-4718-8179-d38105b19a66.png)
+
+Eventually, your main branch should have a successful pipeline like this in blue ocean
+
+![1 y d](https://user-images.githubusercontent.com/10243139/137591678-524745c8-3b93-4ad0-bfff-941251e22404.png)
 
 
+## Part 2 – Running Ansible Playbook from Jenkins
 
+Now that you have a broad overview of a typical Jenkins pipeline. Let us get the actual Ansible deployment to work by:
+
+Installing Ansible on Jenkins
+
+    sudo apt install Ansible -y
+
+![2 a](https://user-images.githubusercontent.com/10243139/137591976-81bbc93d-6b23-4f40-b6ad-2a8b6b8cd711.png)
+
+Installing Ansible plugin in Jenkins UI
+
+Creating Jenkinsfile from scratch. (Delete all you currently have in there and start all over to get Ansible to run successfully)
