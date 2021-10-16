@@ -130,3 +130,132 @@ To really appreciate and feel the difference of Cloud Blue UI, it is recommended
 Notice that this pipeline is a multibranch one. This means, if there were more than one branch in GitHub, Jenkins would have scanned the repository to discover them all and we would have been able to trigger a build for each branch.
 
 Let us see this in action.
+
+Create a new git branch and name it feature/jenkinspipeline-stages
+
+    Git checkout -b feature/jenkinspipeline-stages
+
+Currently we only have the Build stage. Let us add another stage called Test. Paste the code snippet below and push the new changes to GitHub.
+
+       pipeline {
+        agent any
+
+      stages {
+        stage('Build') {
+          steps {
+            script {
+              sh 'echo "Building Stage"'
+            }
+          }
+        }
+
+        stage('Test') {
+          steps {
+            script {
+              sh 'echo "Testing Stage"'
+            }
+          }
+        }
+        }
+    }
+
+![1 x b](https://user-images.githubusercontent.com/10243139/137591317-5859dcd0-095a-4aec-a7ea-e7e0aa248a69.png)
+
+To make your new branch show up in Jenkins, we need to tell Jenkins to scan the repository.
+
+- Click on the "Administration" button
+- Navigate to the Ansible project and click on "Scan repository now"
+
+![Jenkins-Scan-Repository-Now](https://user-images.githubusercontent.com/10243139/137591377-ab4434dc-b5c1-4066-afc2-c4f9cfe9706f.png)
+
+Refresh the page and both branches will start building automatically. You can go into Blue Ocean and see both branches there too.
+
+![1 x d](https://user-images.githubusercontent.com/10243139/137591394-620ff58d-9106-49bf-8a77-063782f24f59.png)
+
+In Blue Ocean, you can now see how the Jenkinsfile has caused a new step in the pipeline launch build for the new branch.
+
+![1 x e](https://user-images.githubusercontent.com/10243139/137591408-a6cca3b7-f46f-4bac-89ca-8e1d71601be8.png)
+
+
+## A QUICK TASK FOR YOU!
+
+- Create a pull request to merge the latest code into the main branch
+- After merging the PR, go back into your terminal and switch into the main branch.
+- Pull the latest change.
+- Create a new branch, add more stages into the Jenkins file to simulate below phases. (Just add an echo command like we have in build and test stages)
+    - Package 
+    - Deploy 
+    - Clean up
+- Verify in Blue Ocean that all the stages are working, then merge your feature branch to the main branch
+- Eventually, your main branch should have a successful pipeline like this in blue ocean
+
+## SOLUTION
+
+Create a pull request to merge the latest code into the main branch
+
+    git checkout main
+    git merge feature/jenkinspipeline-stages
+    
+![1 y a](https://user-images.githubusercontent.com/10243139/137591523-1dc81cc6-6f6f-4651-bef9-1f19eb34a072.png)
+
+Create a new branch, add more stages into the Jenkins file to simulate below phases. (Just add an echo command like we have in build and test stages)
+   
+- Package 
+- Deploy 
+- Clean up
+
+        Git checkout -b feature/jenkinspipeline-morestages
+
+Add the code below into the Jenkinsfile
+
+       pipeline {
+        agent any
+
+      stages {
+        stage('Build') {
+          steps {
+            script {
+              sh 'echo "Building Stage"'
+            }
+          }
+        }
+
+        stage('Test') {
+          steps {
+            script {
+              sh 'echo "Testing Stage"'
+            }
+          }
+        }
+
+
+        stage('Package') {
+          steps {
+            script {
+              sh 'echo "Packaging Stage"'
+            }
+          }
+        }
+
+        stage('Deploy') {
+          steps {
+            script {
+              sh 'echo "Deploying Stage"'
+            }
+          }
+        }
+
+        stage('Clean up') {
+          steps {
+            script {
+              sh 'echo "Cleaning up Stage"'
+            }
+          }
+        }
+        }
+
+    }
+
+
+
+
